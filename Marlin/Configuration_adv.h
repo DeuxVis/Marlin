@@ -10,7 +10,7 @@
 //===========================================================================
 
 #if ENABLED(BED_LIMIT_SWITCHING)
-  #define BED_HYSTERESIS 2 //only disable heating if T>target+BED_HYSTERESIS and enable heating if T>target-BED_HYSTERESIS
+#define BED_HYSTERESIS 2 //only disable heating if T>target+BED_HYSTERESIS and enable heating if T>target-BED_HYSTERESIS
 #endif
 #define BED_CHECK_INTERVAL 5000 //ms between checks in bang-bang control
 
@@ -18,32 +18,33 @@
  * Thermal Protection parameters
  */
 #if ENABLED(THERMAL_PROTECTION_HOTENDS)
-  #define THERMAL_PROTECTION_PERIOD 40        // Seconds
-  #define THERMAL_PROTECTION_HYSTERESIS 4     // Degrees Celsius
+#define THERMAL_PROTECTION_PERIOD 40        // Seconds
+#define THERMAL_PROTECTION_HYSTERESIS 4     // Degrees Celsius
 
-  /**
-   * Whenever an M104 or M109 increases the target temperature the firmware will wait for the
-   * WATCH_TEMP_PERIOD to expire, and if the temperature hasn't increased by WATCH_TEMP_INCREASE
-   * degrees, the machine is halted, requiring a hard reset. This test restarts with any M104/M109,
-   * but only if the current temperature is far enough below the target for a reliable test.
-   */
-  #define WATCH_TEMP_PERIOD 16                // Seconds
-  #define WATCH_TEMP_INCREASE 4               // Degrees Celsius
+/**
+ * Whenever an M104 or M109 increases the target temperature the firmware will wait for the
+ * WATCH_TEMP_PERIOD to expire, and if the temperature hasn't increased by WATCH_TEMP_INCREASE
+ * degrees, the machine is halted, requiring a hard reset. This test restarts with any M104/M109,
+ * but only if the current temperature is far enough below the target for a reliable test.
+ */
+//#define WATCH_TEMP_PERIOD 16                // Seconds  //changed Guy 15/10/2015
+#define WATCH_TEMP_PERIOD 30                // Seconds
+#define WATCH_TEMP_INCREASE 4               // Degrees Celsius
 #endif
 
 #if ENABLED(THERMAL_PROTECTION_BED)
-  #define THERMAL_PROTECTION_BED_PERIOD 20    // Seconds
-  #define THERMAL_PROTECTION_BED_HYSTERESIS 2 // Degrees Celsius
+#define THERMAL_PROTECTION_BED_PERIOD 20    // Seconds
+#define THERMAL_PROTECTION_BED_HYSTERESIS 2 // Degrees Celsius
 #endif
 
 #if ENABLED(PIDTEMP)
-  // this adds an experimental additional term to the heating power, proportional to the extrusion speed.
-  // if Kc is chosen well, the additional required power due to increased melting should be compensated.
-  #define PID_ADD_EXTRUSION_RATE
-  #if ENABLED(PID_ADD_EXTRUSION_RATE)
-    #define DEFAULT_Kc (100) //heating power=Kc*(e_speed)
-    #define LPQ_MAX_LEN 50
-  #endif
+// this adds an experimental additional term to the heating power, proportional to the extrusion speed.
+// if Kc is chosen well, the additional required power due to increased melting should be compensated.
+#define PID_ADD_EXTRUSION_RATE
+#if ENABLED(PID_ADD_EXTRUSION_RATE)
+#define DEFAULT_Kc (100) //heating power=Kc*(e_speed)
+#define LPQ_MAX_LEN 50
+#endif
 #endif
 
 /**
@@ -58,7 +59,7 @@
  */
 #define AUTOTEMP
 #if ENABLED(AUTOTEMP)
-  #define AUTOTEMP_OLDWEIGHT 0.98
+#define AUTOTEMP_OLDWEIGHT 0.98
 #endif
 
 //Show Temperature ADC value
@@ -136,22 +137,22 @@
 
 #if ENABLED(Z_DUAL_STEPPER_DRIVERS)
 
-  // Z_DUAL_ENDSTOPS is a feature to enable the use of 2 endstops for both Z steppers - Let's call them Z stepper and Z2 stepper.
-  // That way the machine is capable to align the bed during home, since both Z steppers are homed. 
-  // There is also an implementation of M666 (software endstops adjustment) to this feature.
-  // After Z homing, this adjustment is applied to just one of the steppers in order to align the bed.
-  // One just need to home the Z axis and measure the distance difference between both Z axis and apply the math: Z adjust = Z - Z2.
-  // If the Z stepper axis is closer to the bed, the measure Z > Z2 (yes, it is.. think about it) and the Z adjust would be positive.
-  // Play a little bit with small adjustments (0.5mm) and check the behaviour.
-  // The M119 (endstops report) will start reporting the Z2 Endstop as well.
+// Z_DUAL_ENDSTOPS is a feature to enable the use of 2 endstops for both Z steppers - Let's call them Z stepper and Z2 stepper.
+// That way the machine is capable to align the bed during home, since both Z steppers are homed. 
+// There is also an implementation of M666 (software endstops adjustment) to this feature.
+// After Z homing, this adjustment is applied to just one of the steppers in order to align the bed.
+// One just need to home the Z axis and measure the distance difference between both Z axis and apply the math: Z adjust = Z - Z2.
+// If the Z stepper axis is closer to the bed, the measure Z > Z2 (yes, it is.. think about it) and the Z adjust would be positive.
+// Play a little bit with small adjustments (0.5mm) and check the behaviour.
+// The M119 (endstops report) will start reporting the Z2 Endstop as well.
 
-  //#define Z_DUAL_ENDSTOPS
+//#define Z_DUAL_ENDSTOPS
 
-  #if ENABLED(Z_DUAL_ENDSTOPS)
-    #define Z2_MAX_PIN 36                     //Endstop used for Z2 axis. In this case I'm using XMAX in a Rumba Board (pin 36)
-    const bool Z2_MAX_ENDSTOP_INVERTING = false;
-    #define DISABLE_XMAX_ENDSTOP              //Better to disable the XMAX to avoid conflict. Just rename "XMAX_ENDSTOP" by the endstop you are using for Z2 axis.
-  #endif
+#if ENABLED(Z_DUAL_ENDSTOPS)
+#define Z2_MAX_PIN 36                     //Endstop used for Z2 axis. In this case I'm using XMAX in a Rumba Board (pin 36)
+const bool Z2_MAX_ENDSTOP_INVERTING = false;
+#define DISABLE_XMAX_ENDSTOP              //Better to disable the XMAX to avoid conflict. Just rename "XMAX_ENDSTOP" by the endstop you are using for Z2 axis.
+#endif
 
 #endif // Z_DUAL_STEPPER_DRIVERS
 
@@ -159,8 +160,8 @@
 //#define Y_DUAL_STEPPER_DRIVERS
 
 #if ENABLED(Y_DUAL_STEPPER_DRIVERS)
-  // Define if the two Y drives need to rotate in opposite directions
-  #define INVERT_Y2_VS_Y_DIR true
+// Define if the two Y drives need to rotate in opposite directions
+#define INVERT_Y2_VS_Y_DIR true
 #endif
 
 // Enable this for dual x-carriage printers.
@@ -169,41 +170,41 @@
 // allowing faster printing speeds.
 //#define DUAL_X_CARRIAGE
 #if ENABLED(DUAL_X_CARRIAGE)
-  // Configuration for second X-carriage
-  // Note: the first x-carriage is defined as the x-carriage which homes to the minimum endstop;
-  // the second x-carriage always homes to the maximum endstop.
-  #define X2_MIN_POS 80     // set minimum to ensure second x-carriage doesn't hit the parked first X-carriage
-  #define X2_MAX_POS 353    // set maximum to the distance between toolheads when both heads are homed
-  #define X2_HOME_DIR 1     // the second X-carriage always homes to the maximum endstop position
-  #define X2_HOME_POS X2_MAX_POS // default home position is the maximum carriage position
-      // However: In this mode the EXTRUDER_OFFSET_X value for the second extruder provides a software
-      // override for X2_HOME_POS. This also allow recalibration of the distance between the two endstops
-      // without modifying the firmware (through the "M218 T1 X???" command).
-      // Remember: you should set the second extruder x-offset to 0 in your slicer.
+// Configuration for second X-carriage
+// Note: the first x-carriage is defined as the x-carriage which homes to the minimum endstop;
+// the second x-carriage always homes to the maximum endstop.
+#define X2_MIN_POS 80     // set minimum to ensure second x-carriage doesn't hit the parked first X-carriage
+#define X2_MAX_POS 353    // set maximum to the distance between toolheads when both heads are homed
+#define X2_HOME_DIR 1     // the second X-carriage always homes to the maximum endstop position
+#define X2_HOME_POS X2_MAX_POS // default home position is the maximum carriage position
+// However: In this mode the EXTRUDER_OFFSET_X value for the second extruder provides a software
+// override for X2_HOME_POS. This also allow recalibration of the distance between the two endstops
+// without modifying the firmware (through the "M218 T1 X???" command).
+// Remember: you should set the second extruder x-offset to 0 in your slicer.
 
-  // Pins for second x-carriage stepper driver (defined here to avoid further complicating pins.h)
-  #define X2_ENABLE_PIN 29
-  #define X2_STEP_PIN 25
-  #define X2_DIR_PIN 23
+// Pins for second x-carriage stepper driver (defined here to avoid further complicating pins.h)
+#define X2_ENABLE_PIN 29
+#define X2_STEP_PIN 25
+#define X2_DIR_PIN 23
 
-  // There are a few selectable movement modes for dual x-carriages using M605 S<mode>
-  //    Mode 0: Full control. The slicer has full control over both x-carriages and can achieve optimal travel results
-  //                           as long as it supports dual x-carriages. (M605 S0)
-  //    Mode 1: Auto-park mode. The firmware will automatically park and unpark the x-carriages on tool changes so
-  //                           that additional slicer support is not required. (M605 S1)
-  //    Mode 2: Duplication mode. The firmware will transparently make the second x-carriage and extruder copy all
-  //                           actions of the first x-carriage. This allows the printer to print 2 arbitrary items at
-  //                           once. (2nd extruder x offset and temp offset are set using: M605 S2 [Xnnn] [Rmmm])
+// There are a few selectable movement modes for dual x-carriages using M605 S<mode>
+//    Mode 0: Full control. The slicer has full control over both x-carriages and can achieve optimal travel results
+//                           as long as it supports dual x-carriages. (M605 S0)
+//    Mode 1: Auto-park mode. The firmware will automatically park and unpark the x-carriages on tool changes so
+//                           that additional slicer support is not required. (M605 S1)
+//    Mode 2: Duplication mode. The firmware will transparently make the second x-carriage and extruder copy all
+//                           actions of the first x-carriage. This allows the printer to print 2 arbitrary items at
+//                           once. (2nd extruder x offset and temp offset are set using: M605 S2 [Xnnn] [Rmmm])
 
-  // This is the default power-up mode which can be later using M605.
-  #define DEFAULT_DUAL_X_CARRIAGE_MODE 0
+// This is the default power-up mode which can be later using M605.
+#define DEFAULT_DUAL_X_CARRIAGE_MODE 0
 
-  // Default settings in "Auto-park Mode"
-  #define TOOLCHANGE_PARK_ZLIFT   0.2      // the distance to raise Z axis when parking an extruder
-  #define TOOLCHANGE_UNPARK_ZLIFT 1        // the distance to raise Z axis when unparking an extruder
+// Default settings in "Auto-park Mode"
+#define TOOLCHANGE_PARK_ZLIFT   0.2      // the distance to raise Z axis when parking an extruder
+#define TOOLCHANGE_UNPARK_ZLIFT 1        // the distance to raise Z axis when unparking an extruder
 
-  // Default x offset in duplication mode (typically set to half print bed width)
-  #define DEFAULT_DUPLICATION_X_OFFSET 100
+// Default x offset in duplication mode (typically set to half print bed width)
+#define DEFAULT_DUPLICATION_X_OFFSET 100
 
 #endif //DUAL_X_CARRIAGE
 
@@ -240,8 +241,8 @@
 // @section lcd
 
 #if ENABLED(ULTIPANEL)
-  #define MANUAL_FEEDRATE {50*60, 50*60, 4*60, 60} // Feedrates for manual moves along X, Y, Z, E from panel
-  #define ULTIPANEL_FEEDMULTIPLY  // Comment to disable setting feedrate multiplier via encoder
+#define MANUAL_FEEDRATE {50*60, 50*60, 4*60, 60} // Feedrates for manual moves along X, Y, Z, E from panel
+#define ULTIPANEL_FEEDMULTIPLY  // Comment to disable setting feedrate multiplier via encoder
 #endif
 
 // @section extras
@@ -290,55 +291,55 @@
 
 #if ENABLED(SDSUPPORT)
 
-  // Some RAMPS and other boards don't detect when an SD card is inserted. You can work
-  // around this by connecting a push button or single throw switch to the pin defined
-  // as SD_DETECT_PIN in your board's pins definitions.
-  // This setting should be disabled unless you are using a push button, pulling the pin to ground.
-  // Note: This is always disabled for ULTIPANEL (except ELB_FULL_GRAPHIC_CONTROLLER).
-  #define SD_DETECT_INVERTED
+// Some RAMPS and other boards don't detect when an SD card is inserted. You can work
+// around this by connecting a push button or single throw switch to the pin defined
+// as SD_DETECT_PIN in your board's pins definitions.
+// This setting should be disabled unless you are using a push button, pulling the pin to ground.
+// Note: This is always disabled for ULTIPANEL (except ELB_FULL_GRAPHIC_CONTROLLER).
+#define SD_DETECT_INVERTED
 
-  #define SD_FINISHED_STEPPERRELEASE true  //if sd support and the file is finished: disable steppers?
-  #define SD_FINISHED_RELEASECOMMAND "M84 X Y Z E" // You might want to keep the z enabled so your bed stays in place.
+#define SD_FINISHED_STEPPERRELEASE true  //if sd support and the file is finished: disable steppers?
+#define SD_FINISHED_RELEASECOMMAND "M84 X Y Z E" // You might want to keep the z enabled so your bed stays in place.
 
-  #define SDCARD_RATHERRECENTFIRST  //reverse file order of sd card menu display. Its sorted practically after the file system block order.
-  // if a file is deleted, it frees a block. hence, the order is not purely chronological. To still have auto0.g accessible, there is again the option to do that.
-  // using:
-  //#define MENU_ADDAUTOSTART
+#define SDCARD_RATHERRECENTFIRST  //reverse file order of sd card menu display. Its sorted practically after the file system block order.
+// if a file is deleted, it frees a block. hence, the order is not purely chronological. To still have auto0.g accessible, there is again the option to do that.
+// using:
+//#define MENU_ADDAUTOSTART
 
-  // Show a progress bar on HD44780 LCDs for SD printing
-  //#define LCD_PROGRESS_BAR
+// Show a progress bar on HD44780 LCDs for SD printing
+//#define LCD_PROGRESS_BAR
 
-  #if ENABLED(LCD_PROGRESS_BAR)
-    // Amount of time (ms) to show the bar
-    #define PROGRESS_BAR_BAR_TIME 2000
-    // Amount of time (ms) to show the status message
-    #define PROGRESS_BAR_MSG_TIME 3000
-    // Amount of time (ms) to retain the status message (0=forever)
-    #define PROGRESS_MSG_EXPIRE   0
-    // Enable this to show messages for MSG_TIME then hide them
-    //#define PROGRESS_MSG_ONCE
-  #endif
+#if ENABLED(LCD_PROGRESS_BAR)
+// Amount of time (ms) to show the bar
+#define PROGRESS_BAR_BAR_TIME 2000
+// Amount of time (ms) to show the status message
+#define PROGRESS_BAR_MSG_TIME 3000
+// Amount of time (ms) to retain the status message (0=forever)
+#define PROGRESS_MSG_EXPIRE   0
+// Enable this to show messages for MSG_TIME then hide them
+//#define PROGRESS_MSG_ONCE
+#endif
 
-  // This allows hosts to request long names for files and folders with M33
-  //#define LONG_FILENAME_HOST_SUPPORT
+// This allows hosts to request long names for files and folders with M33
+//#define LONG_FILENAME_HOST_SUPPORT
 
-  // This option allows you to abort SD printing when any endstop is triggered.
-  // This feature must be enabled with "M540 S1" or from the LCD menu.
-  // To have any effect, endstops must be enabled during SD printing.
-  // With ENDSTOPS_ONLY_FOR_HOMING you must send "M120" to enable endstops.
-  //#define ABORT_ON_ENDSTOP_HIT_FEATURE_ENABLED
+// This option allows you to abort SD printing when any endstop is triggered.
+// This feature must be enabled with "M540 S1" or from the LCD menu.
+// To have any effect, endstops must be enabled during SD printing.
+// With ENDSTOPS_ONLY_FOR_HOMING you must send "M120" to enable endstops.
+//#define ABORT_ON_ENDSTOP_HIT_FEATURE_ENABLED
 
 #endif // SDSUPPORT
 
 // for dogm lcd displays you can choose some additional fonts:
 #if ENABLED(DOGLCD)
-  // save 3120 bytes of PROGMEM by commenting out #define USE_BIG_EDIT_FONT
-  // we don't have a big font for Cyrillic, Kana
-  //#define USE_BIG_EDIT_FONT
- 
-  // If you have spare 2300Byte of progmem and want to use a 
-  // smaller font on the Info-screen uncomment the next line.
-  //#define USE_SMALL_INFOFONT
+// save 3120 bytes of PROGMEM by commenting out #define USE_BIG_EDIT_FONT
+// we don't have a big font for Cyrillic, Kana
+//#define USE_BIG_EDIT_FONT
+
+// If you have spare 2300Byte of progmem and want to use a 
+// smaller font on the Info-screen uncomment the next line.
+//#define USE_SMALL_INFOFONT
 #endif // DOGLCD
 
 // @section more
@@ -360,10 +361,10 @@
 // does not respect endstops!
 //#define BABYSTEPPING
 #if ENABLED(BABYSTEPPING)
-  #define BABYSTEP_XY  //not only z, but also XY in the menu. more clutter, more functions
-                       //not implemented for CoreXY and deltabots!
-  #define BABYSTEP_INVERT_Z false  //true for inverse movements in Z
-  #define BABYSTEP_Z_MULTIPLICATOR 2 //faster z movements
+#define BABYSTEP_XY  //not only z, but also XY in the menu. more clutter, more functions
+//not implemented for CoreXY and deltabots!
+#define BABYSTEP_INVERT_Z false  //true for inverse movements in Z
+#define BABYSTEP_Z_MULTIPLICATOR 2 //faster z movements
 #endif
 
 // @section extruder
@@ -378,9 +379,9 @@
 //#define ADVANCE
 
 #if ENABLED(ADVANCE)
-  #define EXTRUDER_ADVANCE_K .0
-  #define D_FILAMENT 2.85
-  #define STEPS_MM_E 836
+#define EXTRUDER_ADVANCE_K .0
+#define D_FILAMENT 2.85
+#define STEPS_MM_E 836
 #endif
 
 // @section extras
@@ -405,9 +406,9 @@ const unsigned int dropsegments=5; //everything with less than this number of st
 // The number of linear motions that can be in the plan at any give time.
 // THE BLOCK_BUFFER_SIZE NEEDS TO BE A POWER OF 2, i.g. 8,16,32 because shifts and ors are used to do the ring-buffering.
 #if ENABLED(SDSUPPORT)
-  #define BLOCK_BUFFER_SIZE 16   // SD,LCD,Buttons take more memory, block buffer needs to be smaller
+#define BLOCK_BUFFER_SIZE 16   // SD,LCD,Buttons take more memory, block buffer needs to be smaller
 #else
-  #define BLOCK_BUFFER_SIZE 16 // maximize block buffer
+#define BLOCK_BUFFER_SIZE 16 // maximize block buffer
 #endif
 
 // @section more
@@ -435,29 +436,29 @@ const unsigned int dropsegments=5; //everything with less than this number of st
 
 //#define FWRETRACT  //ONLY PARTIALLY TESTED
 #if ENABLED(FWRETRACT)
-  #define MIN_RETRACT 0.1                //minimum extruded mm to accept a automatic gcode retraction attempt
-  #define RETRACT_LENGTH 3               //default retract length (positive mm)
-  #define RETRACT_LENGTH_SWAP 13         //default swap retract length (positive mm), for extruder change
-  #define RETRACT_FEEDRATE 45            //default feedrate for retracting (mm/s)
-  #define RETRACT_ZLIFT 0                //default retract Z-lift
-  #define RETRACT_RECOVER_LENGTH 0       //default additional recover length (mm, added to retract length when recovering)
-  #define RETRACT_RECOVER_LENGTH_SWAP 0  //default additional swap recover length (mm, added to retract length when recovering from extruder change)
-  #define RETRACT_RECOVER_FEEDRATE 8     //default feedrate for recovering from retraction (mm/s)
+#define MIN_RETRACT 0.1                //minimum extruded mm to accept a automatic gcode retraction attempt
+#define RETRACT_LENGTH 3               //default retract length (positive mm)
+#define RETRACT_LENGTH_SWAP 13         //default swap retract length (positive mm), for extruder change
+#define RETRACT_FEEDRATE 45            //default feedrate for retracting (mm/s)
+#define RETRACT_ZLIFT 0                //default retract Z-lift
+#define RETRACT_RECOVER_LENGTH 0       //default additional recover length (mm, added to retract length when recovering)
+#define RETRACT_RECOVER_LENGTH_SWAP 0  //default additional swap recover length (mm, added to retract length when recovering from extruder change)
+#define RETRACT_RECOVER_FEEDRATE 8     //default feedrate for recovering from retraction (mm/s)
 #endif
 
 // Add support for experimental filament exchange support M600; requires display
 #if ENABLED(ULTIPANEL)
-  //#define FILAMENTCHANGEENABLE
-  #if ENABLED(FILAMENTCHANGEENABLE)
-    #define FILAMENTCHANGE_XPOS 3
-    #define FILAMENTCHANGE_YPOS 3
-    #define FILAMENTCHANGE_ZADD 10
-    #define FILAMENTCHANGE_FIRSTRETRACT -2
-    #define FILAMENTCHANGE_FINALRETRACT -100
-    #define AUTO_FILAMENT_CHANGE                //This extrude filament until you press the button on LCD
-    #define AUTO_FILAMENT_CHANGE_LENGTH 0.04    //Extrusion length on automatic extrusion loop
-    #define AUTO_FILAMENT_CHANGE_FEEDRATE 300   //Extrusion feedrate (mm/min) on automatic extrusion loop
-  #endif
+//#define FILAMENTCHANGEENABLE
+#if ENABLED(FILAMENTCHANGEENABLE)
+#define FILAMENTCHANGE_XPOS 3
+#define FILAMENTCHANGE_YPOS 3
+#define FILAMENTCHANGE_ZADD 10
+#define FILAMENTCHANGE_FIRSTRETRACT -2
+#define FILAMENTCHANGE_FINALRETRACT -100
+#define AUTO_FILAMENT_CHANGE                //This extrude filament until you press the button on LCD
+#define AUTO_FILAMENT_CHANGE_LENGTH 0.04    //Extrusion length on automatic extrusion loop
+#define AUTO_FILAMENT_CHANGE_FEEDRATE 300   //Extrusion feedrate (mm/min) on automatic extrusion loop
+#endif
 #endif
 
 /******************************************************************************\
@@ -471,54 +472,54 @@ const unsigned int dropsegments=5; //everything with less than this number of st
 #if ENABLED(HAVE_TMCDRIVER)
 
 //#define X_IS_TMC
-  #define X_MAX_CURRENT 1000  //in mA
-  #define X_SENSE_RESISTOR 91 //in mOhms
-  #define X_MICROSTEPS 16     //number of microsteps
-  
+#define X_MAX_CURRENT 1000  //in mA
+#define X_SENSE_RESISTOR 91 //in mOhms
+#define X_MICROSTEPS 16     //number of microsteps
+
 //#define X2_IS_TMC
-  #define X2_MAX_CURRENT 1000  //in mA
-  #define X2_SENSE_RESISTOR 91 //in mOhms
-  #define X2_MICROSTEPS 16     //number of microsteps
-  
+#define X2_MAX_CURRENT 1000  //in mA
+#define X2_SENSE_RESISTOR 91 //in mOhms
+#define X2_MICROSTEPS 16     //number of microsteps
+
 //#define Y_IS_TMC
-  #define Y_MAX_CURRENT 1000  //in mA
-  #define Y_SENSE_RESISTOR 91 //in mOhms
-  #define Y_MICROSTEPS 16     //number of microsteps
-  
+#define Y_MAX_CURRENT 1000  //in mA
+#define Y_SENSE_RESISTOR 91 //in mOhms
+#define Y_MICROSTEPS 16     //number of microsteps
+
 //#define Y2_IS_TMC
-  #define Y2_MAX_CURRENT 1000  //in mA
-  #define Y2_SENSE_RESISTOR 91 //in mOhms
-  #define Y2_MICROSTEPS 16     //number of microsteps 
-  
+#define Y2_MAX_CURRENT 1000  //in mA
+#define Y2_SENSE_RESISTOR 91 //in mOhms
+#define Y2_MICROSTEPS 16     //number of microsteps 
+
 //#define Z_IS_TMC
-  #define Z_MAX_CURRENT 1000  //in mA
-  #define Z_SENSE_RESISTOR 91 //in mOhms
-  #define Z_MICROSTEPS 16     //number of microsteps
-  
+#define Z_MAX_CURRENT 1000  //in mA
+#define Z_SENSE_RESISTOR 91 //in mOhms
+#define Z_MICROSTEPS 16     //number of microsteps
+
 //#define Z2_IS_TMC
-  #define Z2_MAX_CURRENT 1000  //in mA
-  #define Z2_SENSE_RESISTOR 91 //in mOhms
-  #define Z2_MICROSTEPS 16     //number of microsteps
-  
+#define Z2_MAX_CURRENT 1000  //in mA
+#define Z2_SENSE_RESISTOR 91 //in mOhms
+#define Z2_MICROSTEPS 16     //number of microsteps
+
 //#define E0_IS_TMC
-  #define E0_MAX_CURRENT 1000  //in mA
-  #define E0_SENSE_RESISTOR 91 //in mOhms
-  #define E0_MICROSTEPS 16     //number of microsteps
-  
+#define E0_MAX_CURRENT 1000  //in mA
+#define E0_SENSE_RESISTOR 91 //in mOhms
+#define E0_MICROSTEPS 16     //number of microsteps
+
 //#define E1_IS_TMC
-  #define E1_MAX_CURRENT 1000  //in mA
-  #define E1_SENSE_RESISTOR 91 //in mOhms
-  #define E1_MICROSTEPS 16     //number of microsteps 
-  
+#define E1_MAX_CURRENT 1000  //in mA
+#define E1_SENSE_RESISTOR 91 //in mOhms
+#define E1_MICROSTEPS 16     //number of microsteps 
+
 //#define E2_IS_TMC
-  #define E2_MAX_CURRENT 1000  //in mA
-  #define E2_SENSE_RESISTOR 91 //in mOhms
-  #define E2_MICROSTEPS 16     //number of microsteps 
-  
+#define E2_MAX_CURRENT 1000  //in mA
+#define E2_SENSE_RESISTOR 91 //in mOhms
+#define E2_MICROSTEPS 16     //number of microsteps 
+
 //#define E3_IS_TMC
-  #define E3_MAX_CURRENT 1000  //in mA
-  #define E3_SENSE_RESISTOR 91 //in mOhms
-  #define E3_MICROSTEPS 16     //number of microsteps   
+#define E3_MAX_CURRENT 1000  //in mA
+#define E3_SENSE_RESISTOR 91 //in mOhms
+#define E3_MICROSTEPS 16     //number of microsteps   
 
 #endif
 
@@ -533,71 +534,72 @@ const unsigned int dropsegments=5; //everything with less than this number of st
 #if ENABLED(HAVE_L6470DRIVER)
 
 //#define X_IS_L6470
-  #define X_MICROSTEPS 16     //number of microsteps
-  #define X_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
-  #define X_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
-  #define X_STALLCURRENT 1500 //current in mA where the driver will detect a stall
-  
+#define X_MICROSTEPS 16     //number of microsteps
+#define X_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
+#define X_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
+#define X_STALLCURRENT 1500 //current in mA where the driver will detect a stall
+
 //#define X2_IS_L6470
-  #define X2_MICROSTEPS 16     //number of microsteps
-  #define X2_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
-  #define X2_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
-  #define X2_STALLCURRENT 1500 //current in mA where the driver will detect a stall
-  
+#define X2_MICROSTEPS 16     //number of microsteps
+#define X2_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
+#define X2_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
+#define X2_STALLCURRENT 1500 //current in mA where the driver will detect a stall
+
 //#define Y_IS_L6470
-  #define Y_MICROSTEPS 16     //number of microsteps
-  #define Y_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
-  #define Y_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
-  #define Y_STALLCURRENT 1500 //current in mA where the driver will detect a stall
-  
+#define Y_MICROSTEPS 16     //number of microsteps
+#define Y_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
+#define Y_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
+#define Y_STALLCURRENT 1500 //current in mA where the driver will detect a stall
+
 //#define Y2_IS_L6470
-  #define Y2_MICROSTEPS 16     //number of microsteps 
-  #define Y2_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
-  #define Y2_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
-  #define Y2_STALLCURRENT 1500 //current in mA where the driver will detect a stall 
-  
+#define Y2_MICROSTEPS 16     //number of microsteps 
+#define Y2_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
+#define Y2_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
+#define Y2_STALLCURRENT 1500 //current in mA where the driver will detect a stall 
+
 //#define Z_IS_L6470
-  #define Z_MICROSTEPS 16     //number of microsteps
-  #define Z_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
-  #define Z_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
-  #define Z_STALLCURRENT 1500 //current in mA where the driver will detect a stall
-  
+#define Z_MICROSTEPS 16     //number of microsteps
+#define Z_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
+#define Z_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
+#define Z_STALLCURRENT 1500 //current in mA where the driver will detect a stall
+
 //#define Z2_IS_L6470
-  #define Z2_MICROSTEPS 16     //number of microsteps
-  #define Z2_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
-  #define Z2_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
-  #define Z2_STALLCURRENT 1500 //current in mA where the driver will detect a stall
-  
+#define Z2_MICROSTEPS 16     //number of microsteps
+#define Z2_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
+#define Z2_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
+#define Z2_STALLCURRENT 1500 //current in mA where the driver will detect a stall
+
 //#define E0_IS_L6470
-  #define E0_MICROSTEPS 16     //number of microsteps
-  #define E0_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
-  #define E0_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
-  #define E0_STALLCURRENT 1500 //current in mA where the driver will detect a stall
-  
+#define E0_MICROSTEPS 16     //number of microsteps
+#define E0_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
+#define E0_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
+#define E0_STALLCURRENT 1500 //current in mA where the driver will detect a stall
+
 //#define E1_IS_L6470
-  #define E1_MICROSTEPS 16     //number of microsteps 
-  #define E1_MICROSTEPS 16     //number of microsteps
-  #define E1_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
-  #define E1_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
-  #define E1_STALLCURRENT 1500 //current in mA where the driver will detect a stall
-  
+#define E1_MICROSTEPS 16     //number of microsteps 
+#define E1_MICROSTEPS 16     //number of microsteps
+#define E1_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
+#define E1_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
+#define E1_STALLCURRENT 1500 //current in mA where the driver will detect a stall
+
 //#define E2_IS_L6470
-  #define E2_MICROSTEPS 16     //number of microsteps 
-  #define E2_MICROSTEPS 16     //number of microsteps
-  #define E2_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
-  #define E2_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
-  #define E2_STALLCURRENT 1500 //current in mA where the driver will detect a stall
-  
+#define E2_MICROSTEPS 16     //number of microsteps 
+#define E2_MICROSTEPS 16     //number of microsteps
+#define E2_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
+#define E2_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
+#define E2_STALLCURRENT 1500 //current in mA where the driver will detect a stall
+
 //#define E3_IS_L6470
-  #define E3_MICROSTEPS 16     //number of microsteps   
-  #define E3_MICROSTEPS 16     //number of microsteps
-  #define E3_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
-  #define E3_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
-  #define E3_STALLCURRENT 1500 //current in mA where the driver will detect a stall
-  
+#define E3_MICROSTEPS 16     //number of microsteps   
+#define E3_MICROSTEPS 16     //number of microsteps
+#define E3_K_VAL 50          // 0 - 255, Higher values, are higher power. Be carefull not to go too high    
+#define E3_OVERCURRENT 2000  //maxc current in mA. If the current goes over this value, the driver will switch off
+#define E3_STALLCURRENT 1500 //current in mA where the driver will detect a stall
+
 #endif
 
 #include "Conditionals.h"
 #include "SanityCheck.h"
 
 #endif //CONFIGURATION_ADV_H
+

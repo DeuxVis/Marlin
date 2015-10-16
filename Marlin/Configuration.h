@@ -212,14 +212,14 @@ Here are some standard links for getting your machine calibrated:
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
   // Ultimaker
-  //#define  DEFAULT_Kp 22.2 //changed Guy 06/10/2015
-  //#define  DEFAULT_Ki 1.08 //changed Guy 06/10/2015
-  //#define  DEFAULT_Kd 114 //changed Guy 06/10/2015
+  //#define  DEFAULT_Kp 22.2 //changed Guy 15/10/2015
+  //#define  DEFAULT_Ki 1.08 //changed Guy 15/10/2015
+  //#define  DEFAULT_Kd 114 //changed Guy 15/10/2015
   
   // LogRap's Makergear (?) hotend
-  #define  DEFAULT_Kp 59.95
-  #define  DEFAULT_Ki 3.23
-  #define  DEFAULT_Kd 277.98
+  #define  DEFAULT_Kp 61.08
+  #define  DEFAULT_Ki 3.34
+  #define  DEFAULT_Kd 279.21
 
   // MakerGear
   //#define  DEFAULT_Kp 7.0
@@ -598,8 +598,8 @@ const bool Z_MIN_PROBE_ENDSTOP_INVERTING = false; // set to true to invert the l
 
 // default settings
 
-//#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,4000,500}  // default steps per unit for Ultimaker //changed Guy 06/10/2015
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {64.0, 64.864, 2560, 576}
+//#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,4000,500}  // default steps per unit for Ultimaker //changed Guy 15/10/2015
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {80, 80, 2560, 576}
 //#define DEFAULT_MAX_FEEDRATE          {300, 300, 5, 25}    // (mm/sec) //changed Guy 06/10/2015
 #define DEFAULT_MAX_FEEDRATE          {300, 300, 4, 25}    
 #define DEFAULT_MAX_ACCELERATION      {3000,3000,100,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
@@ -609,7 +609,8 @@ const bool Z_MIN_PROBE_ENDSTOP_INVERTING = false; // set to true to invert the l
 #define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration in mm/s^2 for travel (non printing) moves
 
 // The speed change that does not require acceleration (i.e. the software might assume it can be done instantaneously)
-#define DEFAULT_XYJERK                20.0    // (mm/sec)
+//#define DEFAULT_XYJERK                20.0    // (mm/sec) //changed Guy 15/10/2015
+#define DEFAULT_XYJERK                15.0    // (mm/sec)
 #define DEFAULT_ZJERK                 0.4     // (mm/sec)
 #define DEFAULT_EJERK                 5.0    // (mm/sec)
 
